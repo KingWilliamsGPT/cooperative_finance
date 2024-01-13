@@ -1,0 +1,42 @@
+{% if items_expenses %}
+<h1>{{title_expenses}} Report</h1>
+{% for item in items_expenses %}
+<table>
+	<colspan>
+	<col width="25%">
+	<col width="10%">
+	<col width="15%">
+	<col width="15%">
+	<col width="10%">
+	<col width="10%">
+	<col width="15%">
+	</colspan>
+	<tr>
+		<th>Date</th>
+		<th>Type</th>
+		<th>Recepient</th>
+		<th>Details</th>
+		<th>Receipt No.</th>
+		<th>Voucher No.</th>
+		<th>Amount</th>
+	</tr>
+	{% if item %}
+	<tr>
+		<td>{{item.date_created}}</td>
+		<td>{{item.expense_type}}</td>
+		<td>{{item.payed_to}}</td>
+		<td>todo</td>
+		<td>todo</td>
+		<td>todo</td>
+		<td>{{item.amount}}</td>
+	</tr>
+	{% endif %}
+	<tr>
+		<td>Total Expense:{{total_expense}}</td>
+	</tr>
+</table>
+{% endfor %}
+
+{% else %}
+<h1>No {{title_expenses}} in this period</h1>
+{% endif %}

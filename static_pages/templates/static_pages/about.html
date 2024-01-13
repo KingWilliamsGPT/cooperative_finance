@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+
+
+<!-- Intro Section -->
+<section id="intro" class="container mt-5">
+    <h2 class="text-center mb-4">About The Developers</h2>
+    <p class="lead">Welcome to our developer page! We are a team of passionate developers dedicated to creating amazing software and applications. Here in <strong>bigandy technologies</strong> we build business apps, management softwares, games etc.</p>
+</section>
+
+<!-- <div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-user-circle fa-4x mb-3"></i>
+                <h5 class="card-title">Mr Andrew</h5>
+                <p class="card-text">Full Stack Developer</p>
+            </div>
+        </div>
+    </div> -->
+
+<!-- Team Section -->
+<section id="team" class="container mt-5">
+    <h2 class="text-center mb-4">Our Team</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-center d-flex">
+                <img src="{% static 'team_image/file.jpeg' %}" class="card-img-top rounded-circle mx-auto mt-3" alt="Mr. Andrew" style="width:100px">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mr. Andrew</h5>
+                    <p class="card-text">CEO</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-circle fa-4x mb-3"></i>
+                    <h5 class="card-title">Simon Adewumi</h5>
+                    <p class="card-text">Senior Full Stack Developer</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-circle fa-4x mb-3"></i>
+                    <h5 class="card-title">Williams Samuel</h5>
+                    <p class="card-text">Full Stack Developer</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-circle fa-4x mb-3"></i>
+                    <h5 class="card-title">Samuel Bada</h5>
+                    <p class="card-text">UI/UX Developer</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-circle fa-4x mb-3"></i>
+                    <h5 class="card-title">David Odinaka</h5>
+                    <p class="card-text">Senior Marketer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="container mt-5">
+    <h2 class="text-center mb-4">Contact</h2>
+    <p class="lead text-center">Have questions or want to get in touch? Reach out to us!</p>
+    <div class="text-center">
+        <a href="mailto:bigandytech@gmail.com" class="btn btn-primary">Email Us</a>
+    </div>
+</section>
+
+<!-- Bootstrap Scripts -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+{% endblock %}

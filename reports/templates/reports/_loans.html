@@ -1,0 +1,24 @@
+{% if items_loans %}
+<h1>{{title_loans}} Report</h1>
+<h2>{{title_loans}} recovered</h2>
+{% for item in items_loans %}
+<h3>loan num:{{item.loan_num}}</h3>
+<p>recovered amount:{{ item.principal}}</p>
+<p>date created: {{ item.date_created }}</p>
+{% endfor %}
+{% endif %}
+
+
+{% if issued_items_loans %}
+<h2>{{title_loans}} Issued</h2>
+{% for item in issued_items_loans %}
+<h3>loan num:{{item.loan_num}}</h3>
+<p>issued amount:{{ item.principal}}</p>
+<p>interest: insert interest into loans model</p>
+<p>period: insert period into loans model</p>
+<p>date created: {{ item.date_created }}</p>
+{% endfor %}
+
+{% else %}
+<p>no {{title_loans}}recovered or issued</p>
+{% endif %}

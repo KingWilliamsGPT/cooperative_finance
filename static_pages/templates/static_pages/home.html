@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container-fluid">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#" onclick="window.print();"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Print</a></div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-primary py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Total Savings Deposit</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_deposit_sum|intcomma}}</span></div>
+                                        <small>{{ savings_deposit.count|intword }} dep</small>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-piggy-bank fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-success py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Total Savings Withdrawal</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_withdrawal_sum|intcomma}}</span></div>
+                                        <small>{{ savings_withdrawal.count|intword }} withdrawals</small>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-money-bill-wave fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-info py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Total Loans Issued</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_sum|intcomma}}</span></div>
+                                        <small>{{ loan_issue.count|intword }} issued</small>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-warning py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Total Loans Payed</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_payment_sum|intcomma}}</span></div>
+                                        <small>{{ loan_payment.count|intword }} payed</small>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-handshake fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-primary py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>All Shares Bought</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{shares_buy_sum|intword}} shares</span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-chart-line fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-success py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>All Shares Sold</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{shares_sell_sum|intcomma}} shares</span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-chart-line fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-info py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Total Members</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{members.count|intcomma}}</span> members</div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-warning py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Total Pending Loans</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_pending_sum|intcomma}}</span></div>
+                                        <small>{{ loan_issue_pending.count|intword }} pending</small>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-hourglass-half fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="container text-center">
+				<div class="row">
+					<!-- <div class="col-md-4">
+						<h3>Member</h3>
+					</div>
+					<div class="col-md-4">
+						<h3>Account</h3>
+					</div>
+					<div class="col-md-4">
+						<h3>Type</h3>
+					</div> -->
+				</div>
+				</div>
+            </div>
+
+    {% endblock %}
+
+
+#################################3
+
+
+
+
+
+
+
+<!-- <h3>Site map:</h3> -->
+<!-- <div> -->
+<!-- </div> -->
+

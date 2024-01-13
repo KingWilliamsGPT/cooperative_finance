@@ -1,0 +1,37 @@
+{% if items_income %}
+<h1>{{title_income}} Report</h1>
+{% for item in items_income %}
+<table>
+	<colspan>
+	<col width="20%">
+	<col width="20%">
+	<col width="20%">
+	<col width="25%">
+	<col width="15%">
+	</colspan>
+	<tr>
+		<th>Date</th>
+		<th>Amount</th>
+		<th>Type</th>
+		<th>From</th>
+		<th>Recepient No.</th>
+	</tr>
+	{% if item %}
+	<tr>
+		<td>{{item.date_created}}</td>
+		<td>{{item.amount}}</td>
+		<td>{{item.income_type}}</td>
+		<td>{{item.received_from}}</td>
+		<td>todo<td>
+	</tr>
+	{% endif %}
+	<tr>
+		<td>Total Income:{{total_income}} </td>
+	</tr>
+</table>
+{% endfor %}
+
+{% else %}
+<h1>No {{title_income}} in this period</h1>
+{% endif %}
+

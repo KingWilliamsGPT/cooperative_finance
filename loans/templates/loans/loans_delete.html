@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Are you sure if you want to delete {{item.account}} loans {{type}} transaction with amount {{item.principal}} and loan num {{item.loan_num}}</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="previous" value="{{request.GET.previous}}">
+  <button type="submit">Confirm</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>{{title}}</h3>
+
+<form method='POST'>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
+
+{% if transactions %}
+
+{% for transaction in transactions %}
+
+{% if title == "Income" %}
+
+<p><a href="{% url 'accounting:income_delete' pk=transaction.id %}?previous={{request.path}}">del</a>
+{{ transaction.income_type }} : {{ transaction.amount }}</p>
+   {% else %}
+<p><a href="{% url 'accounting:expense_delete' pk=transaction.id %}?previous={{request.path}}">del</a>
+{{ transaction.expense_type }} : {{ transaction.amount }}</p>
+
+{% endif %}
+
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

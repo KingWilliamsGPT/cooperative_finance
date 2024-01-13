@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Please Watch the Tutorial</h1>
+
+<video src="{% static 'tut/tutorial.mp4' %}" controls style="width:100%"></video>
+
+{% endblock %}

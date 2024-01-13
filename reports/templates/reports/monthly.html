@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% include 'reports/_form_year_month.html' %}
+{% include 'reports/_income.html' %}
+{% include 'reports/_expense.html' %}
+{% include 'reports/_loans.html' %}
+{% include 'reports/_capital.html' %}
+
+<button class="btn btn-primary" onclick="window.print();">Print</button>
+
+{% endblock %}
+

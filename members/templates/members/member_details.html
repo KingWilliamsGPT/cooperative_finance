@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container">
+	<p>Name: {{saving_ac.owner.first_name}} {{saving_ac.owner.last_name}}</p>
+	<p>Status: {{saving_ac.status}}</p>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col">
+                        <h3>Savings</h3>
+			<p>Amount: ₦{{saving_ac.current_balance}}</p>
+                        <hr>
+			<a class="btn btn-primary btn-icon-split" role="button" href="{% url 'savings:depositpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Deposit &nbsp;&nbsp;</span></a><a class="btn btn-secondary btn-icon-split"
+                            role="button" href="{% url 'savings:withdrawpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Withdraw</span></a>
+                        <hr>
+                        <p><strong>Deposit Transactions:</strong></p>
+			{% for transaction in deposit_transactions %}
+			<p>₦ {{ transaction.amount }} @ {{ transaction.date_created }}</p>
+			{% endfor %}
+                        <p><strong>Withdraw Transactions:</strong></p>
+			{% for transaction in withdrawal_transactions %}
+			<p>₦ {{ transaction.amount }} @ {{ transaction.date_created }}</p>
+			{% endfor %}
+                    </div>
+                    <div class="col">
+                        <h3>Shares</h3>
+			<p>Amount: {{ share_ac.current_share}}</p>
+			<hr><a class="btn btn-primary btn-icon-split" role="button" href="{% url 'shares:buypk' pk=share_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Buy &nbsp; &nbsp; &nbsp;</span></a><a class="btn btn-secondary btn-icon-split" role="button" href="{% url 'shares:sellpk' pk=share_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Sell &nbsp; &nbsp; &nbsp;</span></a>
+                        <hr>
+                        <p><strong>Buy Transactions:</strong></p>
+			{% for transaction in buy_transactions %}
+			<p>{{transaction.number}} @ {{ transaction.date_created }}</p>
+			{% endfor %}
+                        <p><strong>Sell Transactions:</strong></p>
+			{% for transaction in sell_transactions %}
+			<p>{{transaction.number}} @ {{ transaction.date_created}}</p>
+			{% endfor %}
+                    </div>
+                    <div class="col">
+                        <h3>Loans</h3>
+			<p>Amount: ₦{{loan_ac.total_principal}}</p>
+			<hr><a class="btn btn-primary btn-icon-split" role="button" href="{% url 'loans:paypk' pk=loan_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Pay &nbsp; &nbsp; &nbsp;</span></a><a class="btn btn-secondary btn-icon-split" role="button" href="{% url 'loans:issuepk' pk=loan_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Issue &nbsp; &nbsp;</span></a>
+                        <hr>
+                        <p><strong>Pay Transactions:</strong></p>
+			{% for transaction in payment_transactions %}
+			<p>₦{{transaction.principal  }} @ {{transaction.date_created}}</p>
+			{% endfor %}
+                        <p><strong>Issue Transactions:</strong></p>
+			{% for transaction in issue_transactions %}
+			<p>₦{{transaction.principal}} @ {{transaction.date_created}}</p>
+			{% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

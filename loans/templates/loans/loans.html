@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+	{% if messages %}
+	{% for message in messages %}
+	<p>{{message}}</p>
+	{% endfor %}
+	{% endif %}
+
+	<h2 class="text-center">Loans Account Management</h2>
+	<div class="row p-3 mt-3">
+		<div class="col-md-6">
+			<h4>Operations</h4>
+			<h3><a href="{% url 'loans:pay' %}">Pay</a></h3>
+			<h3><a href="{% url 'loans:issue' %}">Issue</a></h3>
+			<h3><a href="{% url 'loans:get_loan' %}">Approve</a></h3>
+			<h3><a href="{% url 'loans:get_loan_account' %}">de|activate</a></h3>
+		</div>
+		<div class="col-md-6">
+			<h4>Transactions</h4>
+			<h3><a href="{% url 'loans:transactions' %}">All Loan Pay Transactions</a></h3>
+			<h3><a href="{% url 'loans:transaction' %}">Single Loan account Transactions</a></h3>
+			<h3><a href="{% url 'loans:issue_transactions' %}">All Loan Issue Transactions</a></h3>
+			<h3><a href="{% url 'loans:issue_transaction' %}">Single account Loan Issue Transactions</a></h3>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+

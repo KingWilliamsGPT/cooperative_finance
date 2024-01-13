@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<p>Are you sure if you want to delete expense type of {{item.expense_type}} of amount {{item.amount}}  payed to {{item.payed_to}}</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="previous" value="{{request.GET.previous}}">
+  <button type="submit">Confirm</button>
+</form>
+
+{% endblock %}

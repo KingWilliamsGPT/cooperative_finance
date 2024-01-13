@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+{% if messages %}
+
+{% for message in messages %}
+
+<p>{{message}}</p>
+
+{% endfor %}
+
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="{{ title }}" />
+</form>
+
+</div>
+{% endblock content %}
+

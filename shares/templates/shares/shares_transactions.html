@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+
+{% if form %}
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="{{title}}" />
+</form>
+
+{% else %}
+{% if messages %}
+{% for message in messages %}
+
+<p>{{message}}</p>
+
+{% endfor %}
+
+{% endif %}
+
+<h3>{{title}} Transactions</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Details</th>
+      <th>Amount</th>
+      <th>Date Issued</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    {% for transaction in transactions.all %}
+
+    <th scope="row">{{forloop.counter}}<a href="{% if title == "Buys"  %}
+		    {% url 'shares:buy_delete' pk=transaction.id %}?previous={{request.path}}
+		    {% else %}
+		    {% url 'shares:sell_delete' pk=transaction.id %}?previous={{request.path}}{% endif %}"><i class="fa fa-solid fa-trash" style="color: #d82222;"></i></a></th>
+    <td>{{ transaction.account }}</td>
+    <td>{{title}}</td>
+    <td>{{ transaction.number }}</td>
+    <td>{{ transaction.date_created|naturaltime }}</td>
+    </tr>
+
+    {% endfor %}
+    <tr>
+      <th scope="row">Total</th>
+      <td>{{ transactions_sum }}</td>
+    </tr>
+  </tbody>
+</table>
+<hr>
+
+{% endif %}
+
+{% endblock content %}

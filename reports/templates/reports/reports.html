@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+
+<h3>Income Report: <a href="{%url 'reports:income'%}">Income</a></h3>
+<h3>Expense Report: <a href="{%url 'reports:expense'%}">Expense</a></h3>
+<h3>Loans Report: <a href="{%url 'reports:loan'%}">Loans</a></h3>
+<h3>Capital Report: <a href="{%url 'reports:capital'%}">Capital</a></h3>
+<h3>Monthly Report: <a href="{%url 'reports:monthly'%}">Monthly</a></h3>
+<h3>Yearly Report: <a href="{%url 'reports:yearly'%}">Yearly</a></h3>
+
+<!-- <button class="btn btn-primary" onclick="window.print();">Print</button> -->
+
+</div>
+{% endblock %}

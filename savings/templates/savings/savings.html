@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+	{% if messages %}
+	{% for message in messages %}
+	<p>{{message}}</p>
+	{% endfor %}
+	{% endif %}
+
+	<h2 class="text-center">Savings Account Management</h2>
+	<div class="row p-3 mt-3">
+		<div class="col-md-6">
+			<h4>Operations</h4>
+			<h3><a href="{% url 'savings:withdraw' %}">Withdraw</a></h3>
+			<h3><a href="{% url 'savings:deposit' %}">Deposit</a></h3>
+			<h3><a href="{% url 'savings:get_savings_account' %}">de|activate</a></h3>
+		</div>
+		<div class="col-md-6">
+			<h4>Transactions</h4>
+			<h3><a href="{% url 'savings:transactions' %}">All Deposit Transactions</a></h3>
+			<h3><a href="{% url 'savings:transaction' %}">Single account Deposit Transactions</a></h3>
+			<h3><a href="{% url 'savings:withdraw_transactions' %}">All Withdraw Transactions</a></h3>
+			<h3><a href="{% url 'savings:withdraw_transaction' %}">Single account Withdraw Transactions</a></h3>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
