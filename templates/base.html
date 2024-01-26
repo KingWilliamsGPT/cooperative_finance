@@ -1,4 +1,6 @@
     {% load static %}
+    {% load humanize %}
+
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+    
     <style>
         input[type=submit]{
             display: inline-block;
@@ -34,6 +37,15 @@
             border-color: #4e73df;
         }
     </style>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(function(OneSignal) {
+    OneSignal.init({
+      appId: "838b5870-897b-4880-add2-9d03a73ec7d8",
+    });
+  });
+</script>
 </head>
 
 <body id="page-top">
@@ -80,20 +92,36 @@
                                     </form>
                                 </div>
                             </li>
-                            <!-- <li class="nav-item dropdown no-arrow mx-1" role="presentation">
-                                <li class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="badge badge-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
+                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                                <li class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">{% if user.get_latest_notifications|length %}<span class="badge badge-danger badge-counter">{{ user.get_latest_notifications|length }}</span>{% endif %}<i class="fas fa-bell fa-fw"></i></a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
                                         role="menu">
-                                        <h6 class="dropdown-header">alerts center</h6>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
-                                            <div class="mr-3">
-                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 12, 2019</span>
-                                                <p>A new monthly report is ready to download!</p>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex align-items-center dropdown-item" href="#">
+                                        <h6 class="dropdown-header">Notifications</h6>
+                                        
+                                        {% for notification in user.get_last_notifications %}
+                                            <a class="d-flex align-items-center dropdown-item" href="{% url 'notifications:mark_single' pk=notification.id %}">
+                                                <div class="mr-3">
+                                                    <div class=" icon-circle"><i class="fas fa-bell" style="font-size: 20px; color: #eee;"></i></div>
+                                                </div>
+                                                <div><span class="small text-gray-500">{{ notification.date_created|naturaltime }}</span>
+                                                    <small class="d-block"><b>{{ notification.title|title }}</b>{% if not notification.is_read %}<span style="
+                                                        background-color: red;
+                                                        width: 5px;
+                                                        height: 5px;
+                                                        display: inline-block;
+                                                        border-radius: 50%;
+                                                        position: relative;
+                                                        top: -1px;
+                                                        left: 5px;
+                                                    "></span>{% endif %}</small>
+                                                    <p>{{ notification.content }}</p>
+                                                </div>
+                                            </a>
+                                        {% empty %}
+                                            <span class="d-flex align-items-center dropdown-item text-muted">There are no new notifications</span>
+                                        {% endfor %}
+
+                                        <!-- <a class="d-flex align-items-center dropdown-item" href="#">
                                             <div class="mr-3">
                                                 <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
                                             </div>
@@ -108,10 +136,11 @@
                                             <div><span class="small text-gray-500">December 2, 2019</span>
                                                 <p>Spending Alert: We've noticed unusually high spending for your account.</p>
                                             </div>
-                                        </a><a class="text-center dropdown-item small text-gray-500" href="#">Show All Alerts</a></div>
+                                        </a> -->
+                                        <a class="text-center dropdown-item small text-gray-500" href="#">Show All Notifications</a></div>
                                 </li>
                             </li>
-                            <li class="nav-item dropdown no-arrow mx-1" role="presentation">
+                            <!-- <li class="nav-item dropdown no-arrow mx-1" role="presentation">
                                 <li class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-envelope fa-fw"></i><span class="badge badge-danger badge-counter">7</span></a>
                                     <div class="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
                                         role="menu">

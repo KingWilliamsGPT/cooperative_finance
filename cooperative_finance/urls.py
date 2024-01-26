@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.views.generic import TemplateView
 from django.urls import path,include
 from django.contrib.auth.decorators import login_required
 
@@ -34,4 +35,7 @@ urlpatterns = [
     path('reports/', include('reports.urls')),
     path('accounting/', include('accounting.urls')),
     path('search/', include('search.urls')),
+    # notifications
+    path('notifications/', include('notifications.urls')),
+    # path('OneSignalSDK.js', TemplateView.as_view(template_name='OneSignalSDKWorker.js', content_type='application/javascript')),
 ]

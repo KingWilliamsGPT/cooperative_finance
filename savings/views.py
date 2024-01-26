@@ -8,8 +8,10 @@ from .forms import (SavingDepositForm,SavingWithdrawalForm,
                     
 from .models import (SavingDeposit,SavingWithdrawal,
                     SavingAccount,)
+from notifications.view_helpers import AdminNotificationViewHelper
 
-# Create your views here.
+from user.models import User
+
 
 def saving_account(request):
     template = 'savings/savings_form.html'
@@ -24,6 +26,9 @@ def saving_account(request):
         form = SavingAccountForm(instance=ordered_saving_ac)
 
     if form.is_valid():
+        instance = ordered_saving_ac
+        if form['status'] and form['status'] != instance.status:
+            AdminNotificationViewHelper.de_or_activate(request, instance)
         form.save()
         return redirect("savings:saving")
 
@@ -50,6 +55,10 @@ def saving_deposit(request, **kwargs):
             deposit.account.current_balance += deposit.amount
             deposit.account.save()
             deposit.save()
+            
+            # notify users
+            AdminNotificationViewHelper.create_deposite(request, deposit)
+            
             messages.success(request,
                          'You Have successfully Deposited ₦ {} only to the account number {}.'
                          .format(deposit.amount,deposit.account.owner.mem_number))
@@ -89,6 +98,9 @@ def saving_withdrawal(request, **kwargs):
                 withdraw.account.current_balance -= withdraw.amount
                 withdraw.account.save()
                 withdraw.save()
+
+                AdminNotificationViewHelper.create_withdraw(request, withdraw)
+
                 messages.success(
                     request,
                     'You Have Withdrawn ₦ {} only from the account number {}.'
