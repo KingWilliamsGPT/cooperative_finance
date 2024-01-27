@@ -1,17 +1,60 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load static   %}
+
 
 {% block content %}
 
+<script>
+        function copyToClipboard(thing, oncopy) {
+            // Get the text content from the button
+            var buttonText = thing.innerText;
+
+            // Create a temporary input element
+            var tempInput = document.createElement('input');
+
+            // Set the value of the input to the button text
+            tempInput.value = buttonText;
+
+            // Append the input element to the document
+            document.body.appendChild(tempInput);
+
+            // Select the text in the input element
+            tempInput.select();
+
+            // Copy the selected text to the clipboard
+            document.execCommand('copy');
+
+            // Remove the temporary input element
+            document.body.removeChild(tempInput);
+
+            // Optionally, provide feedback to the user
+            if(!oncopy){
+                alert('Text copied to clipboard');
+            }else{
+                oncopy();
+            }
+        }
+    </script>
+
 <div class="container">
-	<p>Name: {{saving_ac.owner.first_name}} {{saving_ac.owner.last_name}}</p>
-	<p>Status: {{saving_ac.status}}</p>
+        <div class="row">
+                <div class="col mx-auto text-center">
+                        <img class="rounded-circle mr-2 border border-white shadow" width="250" height="250" src="{% if saving_ac.owner.profile_pic %}{{ saving_ac.owner.profile_pic.url }}{% else %}{% static 'default_images/default_user_male.jpg' %}{% endif %}">
+                </div>
+        </div>
+
+	<p>Name: {{saving_ac.owner.full_name}}</p>
+        Member ID: <a href="#" class="btn-group badge badge-pill badge-primary small" role="group" aria-label="Basic example" style="position: relative; top: -5px" onclick="copyToClipboard(this, ()=>{alert('The member Id {{ saving_ac.owner.mem_number}} was copied successfuly')});">
+                <button type="button" class="btn btn-default btn-sm text-white" ><i class="fas fa-copy"></i></button>
+                <button class="btn btn-default btn-sm text-white" >{{saving_ac.owner.mem_number}}</button >
+        </a >
             </div>
-            <div class="container-fluid">
+            <div class="container-fluid mt-4">
                 <div class="row">
                     <div class="col">
-                        <h3>Savings</h3>
-			<p>Amount: ₦{{saving_ac.current_balance}}</p>
+                        <h3>Savings  <a href="{% url 'savings:get_savings_account' %}" class="d-inline-block ml-2" style="font-size: 15px; display: inline-block; position: relative; top:-3px"><i class="fas {% if not saving_ac.is_active %}fa-lock{% else %} fa-lock-open{% endif %}" title="This account has been {{ saving_ac.status }}"></i></a> </h3>
+			<p class="text-primary">Amount: ₦{{saving_ac.current_balance|intcomma }}</p>
                         <hr>
 			<a class="btn btn-primary btn-icon-split" role="button" href="{% url 'savings:depositpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Deposit &nbsp;&nbsp;</span></a><a class="btn btn-secondary btn-icon-split"
                             role="button" href="{% url 'savings:withdrawpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Withdraw</span></a>
@@ -26,8 +69,8 @@
 			{% endfor %}
                     </div>
                     <div class="col">
-                        <h3>Shares</h3>
-			<p>Amount: {{ share_ac.current_share}}</p>
+                        <h3>Shares <a href="{% url 'shares:get_shares_account' %}" class="d-inline-block ml-2" style="font-size: 15px; display: inline-block; position: relative; top:-3px"><i class="fas {% if not share_ac.is_active %}fa-lock{% else %} fa-lock-open{% endif %}" title="This account has been {{ share_ac.status }}"></i></a> </h3>
+			<p class="text-primary">Amount: {{ share_ac.current_share|intcomma }}</p>
 			<hr><a class="btn btn-primary btn-icon-split" role="button" href="{% url 'shares:buypk' pk=share_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Buy &nbsp; &nbsp; &nbsp;</span></a><a class="btn btn-secondary btn-icon-split" role="button" href="{% url 'shares:sellpk' pk=share_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Sell &nbsp; &nbsp; &nbsp;</span></a>
                         <hr>
                         <p><strong>Buy Transactions:</strong></p>
@@ -40,8 +83,8 @@
 			{% endfor %}
                     </div>
                     <div class="col">
-                        <h3>Loans</h3>
-			<p>Amount: ₦{{loan_ac.total_principal}}</p>
+                        <h3>Loans <a href="{% url 'loans:get_loan_account' %}" class="d-inline-block ml-2" style="font-size: 15px; display: inline-block; position: relative; top:-3px"><i class="fas {% if not loan_ac.is_active %}fa-lock{% else %} fa-lock-open{% endif %}" title="This account has been {{ loan_ac.status }}"></i></a> </h3>
+			<p class="text-primary">Amount: ₦{{loan_ac.total_principal|intcomma }}</p>
 			<hr><a class="btn btn-primary btn-icon-split" role="button" href="{% url 'loans:paypk' pk=loan_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Pay &nbsp; &nbsp; &nbsp;</span></a><a class="btn btn-secondary btn-icon-split" role="button" href="{% url 'loans:issuepk' pk=loan_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Issue &nbsp; &nbsp;</span></a>
                         <hr>
                         <p><strong>Pay Transactions:</strong></p>
@@ -56,5 +99,4 @@
                 </div>
             </div>
         </div>
-
 {% endblock %}

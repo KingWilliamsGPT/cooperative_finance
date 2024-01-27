@@ -76,7 +76,7 @@ def saving_deposit(request, **kwargs):
              form = SavingDepositForm()
     context = {
             'form': form,
-            'title': "Deposit"
+            'title': "Deposit",
     }
 
     return render(request, template, context)

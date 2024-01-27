@@ -1,9 +1,12 @@
 {% extends "admin/base.html" %}
+{% load static %}
 
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">Cooperative Society</a></h1>
+<link rel="icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
+<link rel="shortcut icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ APPLICATION_NAME }}</a></h1>
 {% endblock %}
 
 {% block nav-global %}{% endblock %}

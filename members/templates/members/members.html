@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load humanize %}
 
 
@@ -47,11 +48,11 @@
 					<tbody>
 						{% for member in members.all %}
 						<tr>
-							<td><img class="rounded-circle mr-2" width="30" height="30" src="#">
+							<td><img class="rounded-circle mr-2" width="30" height="30" src="{% if member.profile_pic %}{{ member.profile_pic.url }}{% else %}{% static 'default_images/default_user_male.jpg' %}{% endif %}">
 								<a href="{% url 'members:member_detail' mem_number=member.mem_number %}" class="btn btn-primary">{{member.mem_number}}</a>
 
 							</td>
-							<td>{{member.first_name}} {{member.last_name}}</td>
+							<td>{{member.full_name}}</td>
 							<td>{{member.contact}}</td>
 							<td>{{member.address}}</td>
 							<td>{{member.date_created|naturaltime}}</td>

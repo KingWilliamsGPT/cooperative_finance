@@ -25,6 +25,10 @@ class ShareAccount(models.Model):
     def __str__(self):
         return self.owner.first_name
 
+    def is_active(self):
+        return self.status == 'Activated'
+    
+
 class ShareBuy(models.Model):
     account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE)
     number = models.PositiveIntegerField()

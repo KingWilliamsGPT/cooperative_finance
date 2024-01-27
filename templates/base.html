@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
     
+    <link rel="icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
+
     <style>
         input[type=submit]{
             display: inline-block;
@@ -46,19 +49,25 @@
     });
   });
 </script>
+
+<style>
+    /* body.sidebar-toggled #accordionSidebar{
+        position: relative;
+        left: -1px;
+    } */
+</style>
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
-                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
-                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink"></i></div>
-                    <div class="sidebar-brand-text mx-3"><span>Co-Finance</span></div>
+                <a class="navbar-brand justify-content-center align-items-center sidebar-brand m-0" href="#" style="width: 100%">
+                    <div class="sidebar-brand-icon mb-2"><img src="{% static 'logo/logo.jpeg' %}" alt="" style="width:70px"></i></div>
                 </a>
                 <hr class="sidebar-divider my-0">
 
-                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar" style="margin-top: 3.5rem;">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'savings:saving' %}"><i class="fas fa-user"></i><span>Savings</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'loans:loan' %}"><i class="fas fa-table"></i><span>Loans</span></a></li>
@@ -78,8 +87,10 @@
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <form  action = "{% url 'search:member_results' %}"  method="GET" class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input name="mq" class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                            <div class="input-group">
+                                <!-- <input name="mq" class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div> -->
+                                <h4>{{ APPLICATION_NAME }}</h4>
                             </div>
                         </form>
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
@@ -101,7 +112,7 @@
                                         {% for notification in user.get_last_notifications %}
                                             <a class="d-flex align-items-center dropdown-item" href="{% url 'notifications:mark_single' pk=notification.id %}">
                                                 <div class="mr-3">
-                                                    <div class=" icon-circle"><i class="fas fa-bell" style="font-size: 20px; color: #eee;"></i></div>
+                                                    <div class=" icon-circle"><i class="fas {% if 'savings' in notification.title %}fa-piggy-bank{% else %}fa-bell{% endif %}" style="font-size: 20px; color: #eee;"></i></div>
                                                 </div>
                                                 <div><span class="small text-gray-500">{{ notification.date_created|naturaltime }}</span>
                                                     <small class="d-block"><b>{{ notification.title|title }}</b>{% if not notification.is_read %}<span style="

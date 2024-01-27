@@ -30,6 +30,10 @@ class LoanAccount(models.Model):
     def __str__(self):
         return self.owner.first_name
 
+    def is_active(self):
+        return self.status == 'Activated'
+    
+
 class LoanIssue(models.Model):
     account = models.ForeignKey(LoanAccount, on_delete=models.CASCADE)
     loan_num = models.CharField(unique=True, max_length=255, editable=False, default="")

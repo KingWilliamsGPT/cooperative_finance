@@ -21,11 +21,11 @@ def _get_new_status(status):
     return t[t.index(status.lower())-1]
 
 def _get_acct_type(model_instance):
-    if model_instance.__class__.__name__[6:] != 'Account':
+    if model_instance.__class__.__name__[-7:] != 'Account':
         raise TypeError(f'wrong model was passed expected SomeKindOfAccount not {model_instance.__class__.__name__}')
-    acct_type = model_instance.__class__.__name__[:6]
-    if acct_type=='Saving':
-        acct_type = 'Savings'
+    acct_type = model_instance.__class__.__name__[:-7]
+    if acct_type in ('Saving', 'Share'):
+        acct_type += 's'
     return f'{acct_type} Account'
 
 
@@ -60,4 +60,32 @@ class AdminNotificationViewHelper:
         content = f'{owner} {acct_type} was {new_status} by {admin_user}'
         send_notifications(users, title, content, url or default_url)
 
+    @staticmethod
+    def created_member(request, member, url='', users=None):
+        admin_user = request.user
+        owner = member
+        users = users or User.objects.all()
+        default_url = reverse('members:member_detail', args=[owner.mem_number])
+
+        title = "New Member"
+        content = f'The new member {owner.full_name()} was added by {admin_user}'
+        send_notifications(users, title, content, url or default_url)
+    
+    @staticmethod
+    def shares_buy_or_sell(request, share, url='', users=None):
+        admin_user = request.user
+        owner = share.account.owner
+        users = users or User.objects.all()
+        default_url = reverse('members:member_detail', args=[owner.mem_number])
+        amount = share.number
+
+        from shares.models import ShareBuy, ShareSell
+        if isinstance(share, ShareBuy):
+            verb = 'bought'
+        else:
+            verb = 'sold'
+            
+        title = f"shares {verb}"
+        content = f"{owner.full_name()} just {verb} {amount} shares, approved by {admin_user}"
+        send_notifications(users, title, content, url or default_url)
 

@@ -4,10 +4,85 @@
 
 <h3>{{title}}</h3>
 
-<form method='POST'>
+<!-- <form method='POST'>
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">{{title}}</button>
-</form>
+</form> -->
 
+
+<form action="#" id="form_sample_1" class="form-horizontal" method='post' action='' enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-body mx-5" >
+
+    <div class="row">
+      
+            <!-- First name -->
+            <div class="col-md-4">
+              <label for="fn_input">First name</label>
+                <input name="first_name" required type="text" placeholder="" autofocus
+                    class="form-control input-height {% if form.errors.first_name %}is-invalid{% endif %}" id="fn_input" value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"/>
+                    <div class="invalid-feedback">
+                        {{ form.errors.first_name }}
+                      </div>
+            </div>
+        
+            <!-- Last Name -->
+            <div class="col-md-4">
+                <label for="ln_input">Last Name</label>
+                <input name="last_name" type="text" placeholder=""
+                    class="form-control input-height {% if form.errors.last_name %}is-invalid{% endif %}" id="ln_input" value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"/>
+                    <div class="invalid-feedback">
+                        {{ form.errors.last_name }}
+                      </div>
+            </div>
+        
+            
+            
+            <!-- Middle Name -->
+            <div class="col-md-4">
+              <label for="mn_input">Middle Name</label>
+              <input type="text" name="middle_name" placeholder=""
+                    class="form-control input-height {% if form.errors.middle_name %}is-invalid{% endif %}" id="md_input" value="{% if form.middle_name.value %}{{ form.middle_name.value }}{% endif %}"/>
+                    <div class="invalid-feedback">
+                        {{ form.errors.middle_name }}
+                      </div>
+            </div>
+        
+    </div>
+      
+    <!-- Address -->
+    <div class="row mt-3">
+      <div class="col-md-8">
+        <label for="addr">Address</label>
+        <input name="address" required type="text" placeholder="eg. John Doe 123 Main Street" autofocus
+            class="form-control input-height {% if form.errors.address %}is-invalid{% endif %}" id="addr" value="{% if form.address.value %}{{ form.address.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.address }}
+              </div>
+      </div>
+      <div class="col-md-4">
+        <label for="contact1">Contact</label>
+        <input name="contact" required type="text" placeholder="eg. +123" autofocus
+            class="form-control input-height {% if form.errors.contact %}is-invalid{% endif %}" id="contact1" value="{% if form.contact.value %}{{ form.contact.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.contact }}
+              </div>
+      </div>
+    </div>
+
+    <!-- Profile Pic -->
+    <div class="div mt-3">
+      <div class="col">{{ form.profile_pic }}</div>
+    </div>
+
+      <div class="form-actions mt-3">
+          <div class="row">
+              <div class="col">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</form>
 {% endblock %}

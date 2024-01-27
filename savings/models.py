@@ -27,7 +27,11 @@ class SavingAccount(models.Model):
         ordering = ('-date_created',)
         
     def __str__(self):
-        return self.owner.first_name
+        return f'{self.owner.mem_number}'
+    
+    def is_active(self):
+        return self.status == 'Activated'
+    
 
 class SavingDeposit(models.Model):
     account = models.ForeignKey(SavingAccount, on_delete=models.CASCADE)

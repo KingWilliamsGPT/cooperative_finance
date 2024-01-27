@@ -8,15 +8,18 @@ from loans.models import (LoanAccount,LoanIssue,
 from shares.models import (ShareAccount,ShareSell,
         ShareBuy,)
 
-# Create your views here.
+
+
+from notifications.view_helpers import AdminNotificationViewHelper
 
 def member_create(request):
     template = 'members/form.html'
 
-    form = MemberCreateForm(request.POST or None)
+    form = MemberCreateForm(request.POST or None, request.FILES)
 
     if form.is_valid():
         form.save()
+        AdminNotificationViewHelper.created_member(request, form.instance)
         return redirect('members:member')
 
     context = {

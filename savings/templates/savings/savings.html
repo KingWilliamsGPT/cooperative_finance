@@ -11,21 +11,112 @@
 	{% endif %}
 
 	<h2 class="text-center">Savings Account Management</h2>
-	<div class="row p-3 mt-3">
-		<div class="col-md-6">
-			<h4>Operations</h4>
-			<h3><a href="{% url 'savings:withdraw' %}">Withdraw</a></h3>
-			<h3><a href="{% url 'savings:deposit' %}">Deposit</a></h3>
-			<h3><a href="{% url 'savings:get_savings_account' %}">de|activate</a></h3>
-		</div>
-		<div class="col-md-6">
-			<h4>Transactions</h4>
-			<h3><a href="{% url 'savings:transactions' %}">All Deposit Transactions</a></h3>
-			<h3><a href="{% url 'savings:transaction' %}">Single account Deposit Transactions</a></h3>
-			<h3><a href="{% url 'savings:withdraw_transactions' %}">All Withdraw Transactions</a></h3>
-			<h3><a href="{% url 'savings:withdraw_transaction' %}">Single account Withdraw Transactions</a></h3>
+	<div class="row my-5">
+		<div class="col d-flex">
+			<div class="mx-auto">
+				<i class="fas fa-piggy-bank fa-2x" style="font-size: 80px;"></i>
+			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-4 mb-4">
+			<!-- Billing card 1-->
+			<div class="card">
+				<a href="{% url 'savings:withdraw' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">Withdraw</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-4 mb-4">
+			<!-- Billing card 2-->
+			<div class="card">
+				<a href="{% url 'savings:deposit' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">Deposit</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-4 mb-4">
+			<!-- Billing card 3-->
+			<div class="card">
+				<a href="{% url 'savings:get_savings_account' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">De|Activate</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div class="card card-header-actions mb-4 mt-5">
+		<div class="card-header">
+			Transactions
+		</div>
+		<div class="card-body px-0">
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'savings:transactions' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							All deposit transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'savings:transaction' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							Single deposit transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'savings:withdraw_transactions' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							All withdraw transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'savings:withdraw_transaction' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							Single withdraw transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	
 </div>
 
 {% endblock %}

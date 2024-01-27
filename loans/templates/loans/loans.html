@@ -11,22 +11,118 @@
 	{% endif %}
 
 	<h2 class="text-center">Loans Account Management</h2>
-	<div class="row p-3 mt-3">
-		<div class="col-md-6">
-			<h4>Operations</h4>
-			<h3><a href="{% url 'loans:pay' %}">Pay</a></h3>
-			<h3><a href="{% url 'loans:issue' %}">Issue</a></h3>
-			<h3><a href="{% url 'loans:get_loan' %}">Approve</a></h3>
-			<h3><a href="{% url 'loans:get_loan_account' %}">de|activate</a></h3>
-		</div>
-		<div class="col-md-6">
-			<h4>Transactions</h4>
-			<h3><a href="{% url 'loans:transactions' %}">All Loan Pay Transactions</a></h3>
-			<h3><a href="{% url 'loans:transaction' %}">Single Loan account Transactions</a></h3>
-			<h3><a href="{% url 'loans:issue_transactions' %}">All Loan Issue Transactions</a></h3>
-			<h3><a href="{% url 'loans:issue_transaction' %}">Single account Loan Issue Transactions</a></h3>
+	<div class="row my-5">
+		<div class="col d-flex">
+			<div class="mx-auto">
+				<i class="fas fa-hand-holding-usd fa-2x" style="font-size: 80px;"></i>
+			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-lg-3 mb-4">
+			<!-- Billing card 1-->
+			<div class="card">
+				<a href="{% url 'loans:pay' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">Pay</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 mb-4">
+			<!-- Billing card 2-->
+			<div class="card">
+				<a href="{% url 'loans:issue' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">Issue</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 mb-4">
+			<!-- Billing card 3-->
+			<div class="card">
+				<a href="{% url 'loans:get_loan' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">Approve</div>
+				</a>
+			</div>
+		</div>
+		<div class="col-lg-3 mb-4">
+			<!-- Billing card 3-->
+			<div class="card">
+				<a href="{% url 'loans:get_loan_account' %}" class="card-body py-4 shadow border-left-primary">
+					<div class="h3 text-center mb-0 btn">De|Activate</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	
+	<div class="card card-header-actions mb-4 mt-5">
+		<div class="card-header">
+			Transactions
+		</div>
+		<div class="card-body px-0">
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'loans:transactions' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							All Loan Pay Transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'loans:transaction' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							Single Loan account Transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'loans:issue_transactions' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							All Loan Issue Transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+			<hr>
+			<!-- Payment method 1-->
+			<div class="d-flex align-items-center justify-content-between px-4">
+				<div class="d-flex align-items-center">
+					<div class="ms-4">
+						<a href="{% url 'loans:issue_transaction' %}" class="h6"><i class="fas fa-external-link-alt"></i>
+
+							Loan Issue Transactions</a>
+					</div>
+				</div>
+				<div class="ms-4 small">
+					<!-- <div class="badge bg-light text-dark me-3">Default</div>
+					<a href="#!">Edit</a> -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
 
 {% endblock %}

@@ -7,7 +7,9 @@ from .forms import (ShareAccountForm,ShareBuyForm,
 
 from .models import (ShareBuy,ShareSell,
         ShareAccount,)
-# Create your views here.
+
+
+from notifications.view_helpers import AdminNotificationViewHelper
 
 def share_account(request):
     template = 'shares/shares_form.html'
@@ -23,6 +25,8 @@ def share_account(request):
 
     if form.is_valid():
         form.save()
+
+        AdminNotificationViewHelper.de_or_activate(request, form.instance)
         return redirect('shares:share')
 
     context = {
@@ -47,6 +51,9 @@ def share_buy(request, **kwargs):
             buy.account.current_share += buy.number
             buy.account.save()
             buy.save()
+            
+            AdminNotificationViewHelper.shares_buy_or_sell(request, buy)
+
             messages.success(request,
                     'You have successfully added {} share to account number {}.'
                     .format(buy.number,buy.account.owner.mem_number))
@@ -88,6 +95,9 @@ def share_sell(request, **kwargs):
             sell.account.current_share -= sell.number
             sell.account.save()
             sell.save()
+
+            AdminNotificationViewHelper.shares_buy_or_sell(request, sell)
+
             messages.success(request,
                     'You have successfully sold {} share of account number {}.'
                     .format(sell.number,sell.account.owner.mem_number))
