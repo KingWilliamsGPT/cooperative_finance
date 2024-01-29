@@ -19,7 +19,7 @@ class Member(models.Model):
     last_name = models.CharField(max_length=256)
     middle_name = models.CharField(max_length=256, blank=True)
     address = models.CharField(max_length=256)
-    contact = models.CharField(max_length=10)
+    contact = models.CharField(max_length=20)
     status = models.CharField(choices=ACCOUNT_STATUS_CHOICE, default='Activated', max_length=11,editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -34,7 +34,8 @@ class Member(models.Model):
         self.middle_name = _trim_name(self.middle_name)
 
         if add:
-            self.mem_number = 1_000_000 + self.pk
+            if self.pk < 100:
+                self.mem_number = 100 + self.pk
             kwargs["force_insert"] = False
             super(Member, self).save(*args, **kwargs)
         
