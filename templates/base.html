@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
     
-    <link rel="icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'logo/logo.jpeg' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'logo/logo.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'logo/logo.png' %}" type="image/x-icon">
 
     <style>
         input[type=submit]{
@@ -63,11 +63,11 @@
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
             <div class="container-fluid d-flex flex-column p-0">
                 <a class="navbar-brand justify-content-center align-items-center sidebar-brand m-0" href="#" style="width: 100%">
-                    <div class="sidebar-brand-icon mb-2"><img src="{% static 'logo/logo.jpeg' %}" alt="" style="width:70px"></i></div>
+                    <div class="sidebar-brand-icon mb-2"><img src="{% static 'logo/logo.png' %}" alt="" style="width:114px"></i></div>
                 </a>
                 <hr class="sidebar-divider my-0">
 
-                <ul class="nav navbar-nav text-light" id="accordionSidebar" style="margin-top: 3.5rem;">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar" style="margin-top: 6.5rem;">
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'members:member' %}"><i class="fas fa-user-circle"></i><span>Members</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'savings:saving' %}"><i class="fas fa-user"></i><span>Savings</span></a></li>
