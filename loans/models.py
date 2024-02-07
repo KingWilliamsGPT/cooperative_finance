@@ -43,6 +43,9 @@ class LoanIssue(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-date_created',)
+
     def save(self, *args, **kwargs):
         add = not self.pk
         super(LoanIssue, self).save(*args, **kwargs)
@@ -60,6 +63,7 @@ class LoanIssue(models.Model):
     def __str__(self):
         return f'{self.account.owner.first_name} for {self.principal}'
 
+
 class LoanPayment(models.Model):
     loan_num = models.ForeignKey(LoanIssue, on_delete=models.CASCADE)
     principal = models.PositiveIntegerField()
@@ -67,8 +71,12 @@ class LoanPayment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-date_created',)
+
     def __str__(self):
         return f'{self.loan_num.account.owner.first_name} for {self.principal}'
+
 
 class LoansIssue(models.Model):
     account = models.ForeignKey(LoanAccount, on_delete=models.CASCADE)
@@ -78,11 +86,13 @@ class LoansIssue(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+
     def __str__(self):
         return f'{self.account.owner.first_name} for {self.principal}'
 
 
     class Meta:
+        ordering = ('-date_created',)
         verbose_name_plural = "Loans issued"
 
 

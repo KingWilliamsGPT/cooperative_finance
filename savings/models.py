@@ -59,6 +59,7 @@ class SavingWithdrawal(models.Model):
     def __str__(self):
         return self.account.owner.first_name
 
+
 @receiver(post_save, sender=Member)
 def create_account(sender, **kwargs):
     if kwargs['created']:

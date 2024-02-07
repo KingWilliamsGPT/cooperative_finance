@@ -36,8 +36,12 @@ class ShareBuy(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-date_created',)
+
     def __str__(self):
         return self.account.owner.first_name
+
 
 class ShareSell(models.Model):
     account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE)
@@ -46,8 +50,12 @@ class ShareSell(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ('-date_created',)
+
     def __str__(self):
         return self.account.owner.first_name
+
 
 @receiver(post_save, sender=Member)
 def create_account(sender, **kwargs):
