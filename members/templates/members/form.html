@@ -26,6 +26,16 @@
                         {{ form.errors.first_name }}
                       </div>
             </div>
+
+            <!-- Middle Name -->
+            <div class="col-md-4">
+              <label for="mn_input">Middle Name</label>
+              <input type="text" name="middle_name" placeholder=""
+                    class="form-control input-height {% if form.errors.middle_name %}is-invalid{% endif %}" id="md_input" value="{% if form.middle_name.value %}{{ form.middle_name.value }}{% endif %}"/>
+                    <div class="invalid-feedback">
+                        {{ form.errors.middle_name }}
+                      </div>
+            </div>
         
             <!-- Last Name -->
             <div class="col-md-4">
@@ -39,42 +49,100 @@
         
             
             
-            <!-- Middle Name -->
-            <div class="col-md-4">
-              <label for="mn_input">Middle Name</label>
-              <input type="text" name="middle_name" placeholder=""
-                    class="form-control input-height {% if form.errors.middle_name %}is-invalid{% endif %}" id="md_input" value="{% if form.middle_name.value %}{{ form.middle_name.value }}{% endif %}"/>
-                    <div class="invalid-feedback">
-                        {{ form.errors.middle_name }}
-                      </div>
-            </div>
         
     </div>
       
     <!-- Address -->
     <div class="row mt-3">
-      <div class="col-md-8">
-        <label for="addr">Address</label>
+      <div class="col">
+        <label for="addr">{{ form.address.label }}</label>
         <input name="address" required type="text" placeholder="eg. John Doe 123 Main Street" autofocus
             class="form-control input-height {% if form.errors.address %}is-invalid{% endif %}" id="addr" value="{% if form.address.value %}{{ form.address.value }}{% endif %}"/>
             <div class="invalid-feedback">
                 {{ form.errors.address }}
               </div>
       </div>
+
+    </div>
+
+    <!-- Proposed montly contributions -->
+    <div class="row mt-3">
       <div class="col-md-4">
-        <label for="contact1">Contact</label>
-        <input name="contact" required type="text" placeholder="eg. +123" autofocus
-            class="form-control input-height {% if form.errors.contact %}is-invalid{% endif %}" id="contact1" value="{% if form.contact.value %}{{ form.contact.value }}{% endif %}"/>
+        <label for="contact1">{{ form.phone_no.label }}</label>
+        <input name="{{ form.phone_no.name }}" required type="text" placeholder="eg. +123"
+            class="form-control input-height {% if form.errors.phone_no%}is-invalid{% endif %}" id="contact1" value="{% if form.phone_no.value %}{{ form.phone_no.value }}{% endif %}"/>
             <div class="invalid-feedback">
-                {{ form.errors.contact }}
+                {{ form.errors.phone_no }}
               </div>
+      </div>
+      <div class="col-md-4">
+        <label for="email_id">{{ form.email.label }}</label>
+        <input name="{{ form.email.name }}" required type="email" placeholder="eg. example@gmail.com"
+            class="form-control input-height {% if form.errors.email%}is-invalid{% endif %}" id="email_id" value="{% if form.email.value %}{{ form.email.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.email }}
+            </div>
       </div>
     </div>
 
-    <!-- Profile Pic -->
-    <div class="div mt-3">
-      <div class="col">{{ form.profile_pic }}</div>
+    <div class="mt-4">
+      <!-- <hr> -->
+      <h5>Next of kin </h5>
     </div>
+
+    <div class="row">      
+      <div class="col-md-4">
+        <label for="next_of_kin_name_id">{{ form.next_of_kin_name.label }}</label>
+        <input name="{{ form.next_of_kin_name.name }}" required type="next_of_kin_name" placeholder=""
+            class="form-control input-height {% if form.errors.next_of_kin_name%}is-invalid{% endif %}" id="next_of_kin_name_id" value="{% if form.next_of_kin_name.value %}{{ form.next_of_kin_name.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.next_of_kin_name }}
+            </div>
+      </div>
+      <div class="col-md-4">
+        <label for="next_of_kin_phone_no_id">{{ form.next_of_kin_phone_no.label }}</label>
+        <input name="{{ form.next_of_kin_phone_no.name }}" required type="next_of_kin_phone_no" placeholder="+12345"
+            class="form-control input-height {% if form.errors.next_of_kin_phone_no%}is-invalid{% endif %}" id="next_of_kin_phone_no_id" value="{% if form.next_of_kin_phone_no.value %}{{ form.next_of_kin_phone_no.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.next_of_kin_phone_no }}
+            </div>
+      </div>
+
+      <div class="col-md-4">
+        <label for="id_relationship_type">Relationship Type:</label>
+        <select name="relationship_type" id="id_relationship_type" class="form-control input-height {% if form.errors.relationship_type %}is-invalid{% endif %}">
+          {% for choice_key, choice_value in form.fields.relationship_type.choices %}
+            <option value="{{ choice_key }}" {% if form.initial.relationship_type == choice_key %}selected{% endif %}>{{ choice_value }}</option>
+          {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            {{ form.errors.relationship_type }}
+        </div>
+      </div>
+    </div>
+
+    <!-- <hr> -->
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <label for="pmc_id">{{ form.proposed_monthly_contributions.label }}</label>
+        <input name="{{ form.proposed_monthly_contributions.name }}" required type="number" step="0.01" placeholder="Amount in Naira"
+            class="form-control input-height {% if form.errors.proposed_monthly_contributions%}is-invalid{% endif %}" id="pmc_id" value="{% if form.proposed_monthly_contributions.value %}{{ form.proposed_monthly_contributions.value }}{% endif %}"/>
+            <div class="invalid-feedback">
+                {{ form.errors.proposed_monthly_contributions }}
+            </div>
+      </div>
+      <div class="col-md-4">
+        <label>Profile Picture</label>
+        <div>
+          {{ form.profile_pic }}
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Profile Pic -->
+    <!-- <div class="div mt-3 mb-3">
+    </div> -->
 
       <div class="form-actions mt-3">
           <div class="row">

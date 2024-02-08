@@ -35,12 +35,47 @@
                 oncopy();
             }
         }
-    </script>
+</script>
+
+<style>
+        #them_profile{
+                position: relative;
+                max-width: 250px;
+        }
+        #them_profile img{
+                object-fit: cover;
+                object-position: center center;
+        }
+        #them_profile .btn {
+                bottom: 40px;
+                position: relative;
+                right: -180px;
+                border-radius: 50%;
+                padding: 0 !important;
+                width: 32px;
+                height: 32px;
+                text-align: center;
+                display: flex;
+        }
+</style>
+
+<form action="{% url 'members:update_profile_pic' pk=saving_ac.owner.id %}" method="post" id="profile_pic_form" style="display: none;"  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_pic_form }}
+</form>
+
+
+
 
 <div class="container">
         <div class="row">
-                <div class="col mx-auto text-center">
-                        <img class="rounded-circle mr-2 border border-white shadow" width="250" height="250" src="{% if saving_ac.owner.profile_pic %}{{ saving_ac.owner.profile_pic.url }}{% else %}{% static 'default_images/default_user_male.jpg' %}{% endif %}">
+                <div class="col mx-auto text-center d-flex" style="">
+                        <div class="mx-auto" style="" id="them_profile">
+                                <img class="rounded-circle mr-2 border border-white shadow" width="250" height="250" src="{% if saving_ac.owner.profile_pic %}{{ saving_ac.owner.profile_pic.url }}{% else %}{% static 'default_images/default_user_male.jpg' %}{% endif %}">
+                                <button class="btn btn-primary" id><i class="fa fa-edit" title="change profile"  style="
+                                        margin: auto;
+                                    "></i></button>
+                        </div>
                 </div>
         </div>
 
@@ -100,3 +135,24 @@
             </div>
         </div>
 {% endblock %}
+
+
+{% block post_scripts %}
+
+<script>
+
+        $(document).ready(()=>{
+                console.log('something');
+                // redirect click on the btn to the form
+                $('#them_profile .btn').on('click', ()=>{
+                        $('#id_profile_pic').click();
+                });
+
+                // once the form changes submit the form
+                $('#id_profile_pic').on('change', ()=>{
+                        $('#profile_pic_form').submit();
+                });
+
+        });
+</script>
+{% endblock post_scripts %}
