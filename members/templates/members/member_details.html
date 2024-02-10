@@ -109,17 +109,22 @@
                         <h3>Savings  <a href="{% url 'savings:get_savings_account' %}" class="d-inline-block ml-2" style="font-size: 15px; display: inline-block; position: relative; top:-3px"><i class="fas {% if not saving_ac.is_active %}fa-lock{% else %} fa-lock-open{% endif %}" title="This account has been {{ saving_ac.status }}"></i></a> </h3>
 			<p class="text-primary">Amount: ₦{{saving_ac.current_balance|intcomma }}</p>
                         <hr>
-			<a class="btn btn-primary btn-icon-split" role="button" href="{% url 'savings:depositpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Deposit &nbsp;&nbsp;</span></a><a class="btn btn-secondary btn-icon-split"
-                            role="button" href="{% url 'savings:withdrawpk' pk=saving_ac.pk %}"><span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Withdraw</span></a>
+			
+                        <a class="btn btn-primary btn-icon-split" role="button" href="{% url 'savings:depositpk' pk=saving_ac.pk %}">
+                                <span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span>
+                                <span class="text-white text">Deposit &nbsp;&nbsp;</span></a><a class="btn btn-secondary btn-icon-split" role="button" href="{% url 'savings:withdrawpk' pk=saving_ac.pk %}">
+                                <!-- <span class="text-white-50 icon"><i class="fas fa-arrow-right"></i></span><span class="text-white text">Withdraw now</span> -->
+                        </a>
+
                         <hr>
                         <p><strong>Deposit Transactions:</strong></p>
 			{% for transaction in deposit_transactions %}
 			<p>₦ {{ transaction.amount }} @ {{ transaction.date_created }}</p>
 			{% endfor %}
-                        <p><strong>Withdraw Transactions:</strong></p>
+                        <!-- <p><strong>Withdraw Transactions:</strong></p>
 			{% for transaction in withdrawal_transactions %}
 			<p>₦ {{ transaction.amount }} @ {{ transaction.date_created }}</p>
-			{% endfor %}
+			{% endfor %} -->
                     </div>
                     <div class="col">
                         <h3>Shares <a href="{% url 'shares:get_shares_account' %}" class="d-inline-block ml-2" style="font-size: 15px; display: inline-block; position: relative; top:-3px"><i class="fas {% if not share_ac.is_active %}fa-lock{% else %} fa-lock-open{% endif %}" title="This account has been {{ share_ac.status }}"></i></a> </h3>

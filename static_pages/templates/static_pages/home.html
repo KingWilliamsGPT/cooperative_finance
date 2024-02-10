@@ -13,7 +13,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Total Savings Deposit</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_deposit_sum|intcomma}}</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_deposit_sum|default:"0"|intcomma}}</span></div>
                                         <small>{{ savings_deposit.count|intword }} dep</small>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-piggy-bank fa-2x text-gray-300"></i></div>
@@ -27,7 +27,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Total Savings Withdrawal</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_withdrawal_sum|intcomma}}</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{savings_withdrawal_sum|default:"0"|intcomma}}</span></div>
                                         <small>{{ savings_withdrawal.count|intword }} withdrawals</small>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-money-bill-wave fa-2x text-gray-300"></i></div>
@@ -41,7 +41,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Total Loans Issued</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_sum|intcomma}}</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_sum|default:0|intcomma}}</span></div>
                                         <small>{{ loan_issue.count|intword }} issued</small>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-hand-holding-usd fa-2x text-gray-300"></i></div>
@@ -55,7 +55,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Total Loans Payed</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_payment_sum|intcomma}}</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_payment_sum|default:0|intcomma}}</span></div>
                                         <small>{{ loan_payment.count|intword }} payed</small>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-handshake fa-2x text-gray-300"></i></div>
@@ -84,7 +84,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>All Shares Sold</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{shares_sell_sum|intcomma}} shares</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{shares_sell_sum|default:0|intcomma}} shares</span></div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-chart-line fa-2x text-gray-300"></i></div>
                                 </div>
@@ -97,7 +97,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Total Members</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{members.count|intcomma}}</span> members</div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>{{members.count|default:0|intcomma}}</span> members</div>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
                                 </div>
@@ -110,7 +110,7 @@
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
                                         <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Total Pending Loans</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_pending_sum|intcomma}}</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>₦ {{loan_issue_pending_sum|default:0|intcomma}}</span></div>
                                         <small>{{ loan_issue_pending.count|intword }} pending</small>
                                     </div>
                                     <div class="col-auto"><i class="fas fa-hourglass-half fa-2x text-gray-300"></i></div>
