@@ -66,6 +66,10 @@ class Member(models.Model):
     profile_pic = models.ImageField(upload_to='members/profile_pic', blank=True, null=True)
 
 
+    class Meta:
+        ordering = ('-date_created',)
+
+
     def clean(self):
         super().clean()
 

@@ -7,28 +7,16 @@
 
 <script>
         function copyToClipboard(thing, oncopy) {
-            // Get the text content from the button
             var buttonText = thing.innerText;
-
-            // Create a temporary input element
             var tempInput = document.createElement('input');
-
-            // Set the value of the input to the button text
+            
             tempInput.value = buttonText;
-
-            // Append the input element to the document
             document.body.appendChild(tempInput);
-
-            // Select the text in the input element
             tempInput.select();
-
-            // Copy the selected text to the clipboard
             document.execCommand('copy');
-
-            // Remove the temporary input element
             document.body.removeChild(tempInput);
 
-            // Optionally, provide feedback to the user
+            // Provide feedback to the user
             if(!oncopy){
                 alert('Text copied to clipboard');
             }else{
@@ -57,6 +45,22 @@
                 text-align: center;
                 display: flex;
         }
+
+        /* toggle more detail */
+        .more .more-content,
+        .more .show-more .msg2{
+                display: none;
+        }
+
+        .more.show .more-content,
+        .more.show .show-more .msg2
+        {
+                display: initial;
+        }
+        
+        .more.show .show-more .msg1{
+                display: none;
+        }
 </style>
 
 <form action="{% url 'members:update_profile_pic' pk=saving_ac.owner.id %}" method="post" id="profile_pic_form" style="display: none;"  enctype="multipart/form-data">
@@ -79,11 +83,25 @@
                 </div>
         </div>
 
-	<p>Name: {{saving_ac.owner.full_name}}</p>
+	<p>Name: <strong>{{saving_ac.owner.full_name}}</strong></p>
         Member ID: <a href="#" class="btn-group badge badge-pill badge-primary small" role="group" aria-label="Basic example" style="position: relative; top: -5px" onclick="copyToClipboard(this, ()=>{alert('The member Id {{ saving_ac.owner.mem_number}} was copied successfuly')});">
                 <button type="button" class="btn btn-default btn-sm text-white" ><i class="fas fa-copy"></i></button>
                 <button class="btn btn-default btn-sm text-white" >{{saving_ac.owner.mem_number}}</button >
         </a >
+        <div class="more mt-3">
+                <div class="more-content">
+                        <p>Address: {{ member.address }} </p>
+                        <p>Phone No: <a href="tel:{{ member.phone_no }}">{{ member.phone_no }}</a></p>
+                        <p>Email: <a href="mailto:{{ member.email }}">{{ member.email }}</a></p>
+                        <p>Next of Kin: {{ member.next_of_kin_name }}</p>
+                        <p>Next of Kin Phone No: <a href="tel:{{ member.next_of_kin_phone_no }}">{{ member.next_of_kin_phone_no }}</a></p>
+
+                </div>
+                <a href="javascript:void();" class="show-more text-primary">
+                        <span class="msg1">...more</span>
+                        <span class="msg2">...less</span>
+                </a>
+        </div>
             </div>
             <div class="container-fluid mt-4">
                 <div class="row">
@@ -142,7 +160,6 @@
 <script>
 
         $(document).ready(()=>{
-                console.log('something');
                 // redirect click on the btn to the form
                 $('#them_profile .btn').on('click', ()=>{
                         $('#id_profile_pic').click();
@@ -153,6 +170,9 @@
                         $('#profile_pic_form').submit();
                 });
 
+                $('.show-more').on('click', (e)=>{
+                        $(e.target).parent().parent().toggleClass('show');
+                });
         });
 </script>
 {% endblock post_scripts %}

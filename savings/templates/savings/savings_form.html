@@ -14,12 +14,119 @@
 
 {% endif %}
 
-<form method="POST">
+<form method="POST" id="share_form">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="{{ title }}" />
+  {% if member %}
+    <h2 class="text-center my-5">{{ member.full_name }}</h2>
+  {% endif %}
+  <div class="form-body mx-5" >
+    <div class="row">
+      <div class="col-md-4">
+        <label for="fn_input">Total Amount Paid</label>
+          <input name="total_amount_paid" type="number" min="0" step="0.01" placeholder="" disabled
+              class="form-control input-height "/>
+              <small style="font-size: 60%;">No need to enter this field</small>
+      </div>
+    </div>
+    <div class="row mt-4">
+        <!-- mem_number  -->
+        
+        <div class="col-md-4 " style=" {% if form.mem_number.value %}display: none;{% endif %}">
+          <label for="fn_input">{{ form.mem_number.label }}</label>
+            <input name="{{ form.mem_number.name }}" required type="text" placeholder="" autofocus
+                class="form-control input-height {% if form.errors.mem_number %}is-invalid{% endif %}" id="fn_input" value="{% if form.mem_number.value %}{{ form.mem_number.value }}{% endif %}"/>
+                <div class="invalid-feedback">
+                    {{ form.errors.mem_number }}
+                  </div>
+        </div>
+        
+        <!-- montly_savings  -->
+        <div class="col-md-4">
+          <label for="fn_input">{{ form.montly_savings.label }}</label>
+            <input name="{{ form.montly_savings.name }}" required type="number" min="0" step="0.01" placeholder="" autofocus
+                class="entry form-control input-height {% if form.errors.montly_savings %}is-invalid{% endif %}" id="fn_input" value="{% if form.montly_savings.value %}{{ form.montly_savings.value }}{% endif %}"/>
+                <div class="invalid-feedback">
+                    {{ form.errors.montly_savings }}
+                  </div>
+        </div>
+        
+        <!-- amount_to_shares  -->
+        <div class="col-md-4">
+          <label for="fn_input">{{ form.amount_to_shares.label }}</label>
+            <input name="{{ form.amount_to_shares.name }}" required type="number" min="0" step="0.01" placeholder="" autofocus
+                class="entry form-control input-height {% if form.errors.amount_to_shares %}is-invalid{% endif %}" id="fn_input" value="{% if form.amount_to_shares.value %}{{ form.amount_to_shares.value }}{% endif %}"/>
+                <div class="invalid-feedback">
+                    {{ form.errors.amount_to_shares }}
+                  </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+
+        <div class="col-md-4">
+          <label for="fn_input">{{ form.transaction_cost.label }}</label>
+            <input name="{{ form.transaction_cost.name }}" required type="number" min="0" step="0.01" placeholder="" autofocus
+                class="entry text-danger form-control input-height {% if form.errors.transaction_cost %}is-invalid{% endif %}" id="fn_input" value="{% if form.transaction_cost.value %}{{ form.transaction_cost.value }}{% endif %}"/>
+                <div class="invalid-feedback">
+                    {{ form.errors.transaction_cost }}
+                  </div>
+        </div>
+        <div class="col-md-4">
+          <label for="fn_input">{{ form.members_registration_cost.label }}</label>
+            <input name="{{ form.members_registration_cost.name }}" required type="number" min="0" step="0.01" placeholder="" autofocus
+                class="entry text-danger form-control input-height {% if form.errors.members_registration_cost %}is-invalid{% endif %}" id="fn_input" value="{% if form.members_registration_cost.value %}{{ form.members_registration_cost.value }}{% endif %}" />
+                <div class="invalid-feedback">
+                    {{ form.errors.members_registration_cost }}
+                  </div>
+        </div>
+
+      </div>
+      <div class="mt-4">
+        <input type="submit" value="{{ title }}" />
+      </div>
+  </div>
+  <!-- {{ form.total_amount }} -->
+  <!-- {{ form.amount_to_shares }} -->
+  <!-- {{ form.loan_number }} -->
+  <!-- {{ form.loan_amount }} -->
 </form>
 
 </div>
 {% endblock content %}
 
+
+
+
+{% block post_scripts %}
+  <script>
+    $(document).ready(()=>{
+      var all_entries = $('#share_form .entry');
+      var to_float = Number.parseFloat;
+      var total_amount_paid = $('#share_form input[name=total_amount_paid]');
+
+      var sumAllEntries = ()=>{
+        let sum_entries = [];
+        for(let entry of all_entries){
+          let val = entry.value;
+          if (val){
+            sum_entries.push(to_float(entry.value));
+          }
+        }
+        sum = 0;
+        for (let i=0; i<sum_entries.length; i++){
+          sum += sum_entries[i];
+        }
+        total_amount_paid.val(sum);
+      }
+      
+      all_entries.on('change', (inputChanged)=>sumAllEntries());
+      sumAllEntries();
+    });
+
+  </script>
+  <style>
+    input.entry.text-danger{
+      color: #ffa5a5 !important;
+    }
+  </style>
+{% endblock post_scripts %}

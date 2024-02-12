@@ -5,3 +5,4 @@ Pillow==9.5.0
 pytz==2023.3.post1
 sqlparse==0.4.4
 whitenoise==4.1.2
+django_easy_pdf==0.1.1

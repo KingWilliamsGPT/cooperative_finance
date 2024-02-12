@@ -35,7 +35,7 @@ def member_create(request):
         if form.is_valid():
                 form.save()
                 AdminNotificationViewHelper.created_member(request, form.instance)
-                return redirect('members:member')
+                return redirect('members:member_detail', mem_number=str(form.instance.mem_number))
     else:
         form = MemberCreateForm()
 
@@ -50,7 +50,7 @@ def member_create(request):
 def member(request):
     template = 'members/members.html'
 
-    members = Member.objects.order_by("mem_number")
+    members = Member.objects.all()
 
     context = {
             'members': members,

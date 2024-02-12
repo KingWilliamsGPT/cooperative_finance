@@ -11,6 +11,11 @@ from .models import (ShareBuy,ShareSell,
 
 from notifications.view_helpers import AdminNotificationViewHelper
 
+
+# def _share_buy(request):
+
+    
+
 def share_account(request):
     template = 'shares/shares_form.html'
 
@@ -41,7 +46,7 @@ def share_buy(request, **kwargs):
 
     if request.method == "POST":
         form = ShareBuyForm(request.POST)
-        if form.is_valid():
+        if form.is_valid(): 
             buy = form.save(commit=False)
             if buy.account.status == "Deactivated":
                 messages.warning(request,

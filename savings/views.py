@@ -4,13 +4,14 @@ from django.db.models import Sum
 from django import forms
 
 from .forms import (SavingDepositForm,SavingWithdrawalForm,
-        GetSavingAccountForm,SavingAccountForm,)
+        GetSavingAccountForm,SavingAccountForm, DepositForm)
                     
 from .models import (SavingDeposit,SavingWithdrawal,
                     SavingAccount,)
 from notifications.view_helpers import AdminNotificationViewHelper
 
 from user.models import User
+from members.models import Member
 
 
 def saving_account(request):
@@ -42,22 +43,59 @@ def saving_account(request):
 
 def saving_deposit(request, **kwargs):
     template = 'savings/savings_form.html'
+    context = {}
 
     if request.method == 'POST':
-        form = SavingDepositForm(request.POST)
+        # form = SavingDepositForm(request.POST)
+        form = DepositForm(request.POST)
         if form.is_valid():
-            deposit = form.save(commit=False)
-            if deposit.account.status == 'Deactivated':
-                messages.warning(request,
-                        "This account is not yet activated please activate the account first")
-                return redirect("savings:saving")
-            # adds deposit to the users saving account current balance
-            deposit.account.current_balance += deposit.amount
-            deposit.account.save()
-            deposit.save()
+            mem_number = form.cleaned_data['mem_number']
+            amnt_to_savings = form.cleaned_data['montly_savings']
+            amnt_to_shares = form.cleaned_data['amount_to_shares']
+
+            # cost
+            transaction_cost = form.cleaned_data['transaction_cost']
+            members_registration_cost = form.cleaned_data['members_registration_cost']
             
-            # notify users
-            AdminNotificationViewHelper.create_deposite(request, deposit)
+
+            member = get_object_or_404(Member, mem_number=mem_number)
+            saving_account = member.savingaccount
+            share_account = member.shareaccount
+
+            if amnt_to_savings:
+                deposit = saving_account.deposits.create(
+                    amount=amnt_to_savings,
+                    transaction_cost=transaction_cost,
+                    members_registration_cost=members_registration_cost,
+                )
+
+                if deposit.account.status == 'Deactivated':
+                    messages.warning(request,
+                            "This account is not yet activated please activate the account first")
+                    return redirect("savings:saving")
+                # adds deposit to the users saving account current balance
+                deposit.account.current_balance += deposit.amount
+                deposit.account.save()
+                deposit.save()
+
+                # notify users
+                AdminNotificationViewHelper.create_deposite(request, deposit)
+                
+            if amnt_to_shares:
+                # buy shares
+                buy = share_account.buys.create(number=amnt_to_shares)
+
+                if buy.account.status == "Deactivated":
+                    messages.warning(request,
+                            "This account is not activated yet please activate the account first")
+                    return redirect("shares:share")
+                #adds bought share to current share of shares account
+                buy.account.current_share += buy.number
+                buy.account.save()
+                buy.save()
+
+                AdminNotificationViewHelper.shares_buy_or_sell(request, buy)
+            
             
             messages.success(request,
                          'You Have successfully Deposited ₦ {} only to the account number {}.'
@@ -67,17 +105,33 @@ def saving_deposit(request, **kwargs):
             return redirect("savings:deposit")
     else:
         if 'pk' in kwargs:
-            ac=kwargs['pk']
-            form = SavingDepositForm()
-            form.fields["account"].queryset = SavingAccount.objects.filter(id=ac)
-            form.fields["account"].initial = ac
-            form.fields["account"].widget = forms.HiddenInput() 
+            id=ac=kwargs['pk']
+            member = get_object_or_404(Member, id=id)
+            # form = SavingDepositForm()
+            # set the savings account to what we know and hide the form
+            # form.fields["account"].queryset = SavingAccount.objects.filter(id=ac)
+            # form.fields["account"].initial = ac
+            # form.fields["account"].widget = forms.HiddenInput() 
+            form = DepositForm()
+            form['mem_number'].initial = member.mem_number
+            form['mem_number'].widget = forms.HiddenInput()
+
+            form['montly_savings'].initial = member.proposed_monthly_contributions
+            form['montly_savings'].widget = forms.HiddenInput()
+
+
+            context.update({
+                'member': member
+            })
+
+
+
         else:
-             form = SavingDepositForm()
-    context = {
+            form = DepositForm()
+    context.update({
             'form': form,
             'title': "Deposit",
-    }
+    })
 
     return render(request, template, context)
 

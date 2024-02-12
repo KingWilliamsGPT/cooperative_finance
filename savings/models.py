@@ -34,8 +34,12 @@ class SavingAccount(models.Model):
     
 
 class SavingDeposit(models.Model):
-    account = models.ForeignKey(SavingAccount, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
+    account = models.ForeignKey(SavingAccount, on_delete=models.CASCADE, related_name='deposits')
+    amount = models.DecimalField(max_digits=10, decimal_places=2) # monthly savings
+    transaction_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True) 
+    members_registration_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0, blank=True) 
+    # investment_fund = models.DecimalField(max_digits=10, decimal_places=2)
+
     delete_status = models.CharField(choices=DELETE_STATUS_CHOICE, default='False', max_length=5, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -47,8 +51,8 @@ class SavingDeposit(models.Model):
         return self.account.owner.first_name
 
 class SavingWithdrawal(models.Model):
-    account = models.ForeignKey(SavingAccount, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
+    account = models.ForeignKey(SavingAccount, on_delete=models.CASCADE, related_name='withdrawals')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     delete_status = models.CharField(choices=DELETE_STATUS_CHOICE, default='False', max_length=5, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

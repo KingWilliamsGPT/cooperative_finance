@@ -30,7 +30,7 @@ class ShareAccount(models.Model):
     
 
 class ShareBuy(models.Model):
-    account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE, related_name='buys')
     number = models.PositiveIntegerField()
     delete_status = models.CharField(choices=DELETE_STATUS_CHOICE, default='False', max_length=5, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -44,7 +44,7 @@ class ShareBuy(models.Model):
 
 
 class ShareSell(models.Model):
-    account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(ShareAccount, on_delete=models.CASCADE, related_name='sells')
     number = models.PositiveIntegerField()
     delete_status = models.CharField(choices=DELETE_STATUS_CHOICE, default='False', max_length=5, editable=False)
     date_created = models.DateTimeField(auto_now_add=True)
