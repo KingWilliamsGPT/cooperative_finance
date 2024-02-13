@@ -31,7 +31,7 @@ SECRET_KEY = 'ajx+i^vwm27))d@x2aha&w^^x-y-4=brum+22dmj$62!=y&7t8'
 # DEBUG = os.environ.get('DEBUG_VALUE')
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cooperativesociety.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 
